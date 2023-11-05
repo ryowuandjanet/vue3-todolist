@@ -1,7 +1,7 @@
 <template>
   <div class="todo-container">
     <div class="todo-wrap">
-      <Header />
+      <Header :addTodo="addTodo" />
       <List :todos="todos" />
       <Footer />
     </div>
@@ -15,7 +15,6 @@
   import Footer from './components/Footer.vue'
 
   import { Todo } from './types/todo'
-
 
   export default defineComponent ({
     name: 'App',
@@ -33,8 +32,14 @@
         { id: 3, title: "看電影", isCompleted: false },
       ]
     })
+
+    const addTodo = (todo: Todo) => {
+      state.todos.unshift(todo)
+    }
+
     return {
-      ...toRefs(state)
+      ...toRefs(state),
+      addTodo
     }
   }
 
