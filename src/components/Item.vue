@@ -1,5 +1,9 @@
 <template>
-  <li>
+  <li 
+    @mouseenter="mouseHandler(true)" 
+    @mouseleave="mouseHandler(false)"
+    :style="{backgroundColor: bgColor, color: myColor}"
+  >
     <label>
       <input type="checkbox" />
       <span>{{  todo.title  }}</span>
@@ -9,15 +13,38 @@
 </template>
   
 <script lang="ts">
-  import { defineComponent } from "vue";
+  import { defineComponent,ref } from "vue";
   // 引入接口
   import {Todo} from '../types/todo'
   export default defineComponent({
     name: "Item",
     props: {
       todo: Object as () => Todo // 龟式返回的是Todo類型
+    },
+
+    setup() {
+      const bgColor=ref('white')
+      const myColor=ref('black')
+      const isShow = ref(false)
+      const mouseHandler = (flag: boolean) => {
+        if(flag){
+          bgColor.value = 'pink'
+          myColor.value = 'green'
+          isShow.value = true
+        }else{
+          bgColor.value = 'white'
+          myColor.value = 'black'
+          isShow.value = false
+        }
+      }
+      return {
+        mouseHandler,
+        bgColor,
+        myColor
+      }
     }
   });
+
 </script>
   
 <style>
@@ -44,7 +71,7 @@
 
   li button {
     float: right;
-    display: none;
+    /* display: none; */
     margin-top: 3px;
   }
 
