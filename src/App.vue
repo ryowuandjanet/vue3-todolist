@@ -10,6 +10,7 @@
       <Footer 
         :todos="todos"
         :checkAll="checkAll"
+        :clearAllCompletedTodos="clearAllCompletedTodos"
       />
     </div>
   </div>
@@ -59,12 +60,17 @@
       })
     }
 
+    const clearAllCompletedTodos = () => {
+      state.todos = state.todos.filter(todo => !todo.isCompleted)
+    }
+
     return {
       ...toRefs(state),
       addTodo,
       deleteTodo,
       updateTodo,
-      checkAll
+      checkAll,
+      clearAllCompletedTodos
     }
   }
 
