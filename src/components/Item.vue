@@ -5,10 +5,16 @@
     :style="{backgroundColor: bgColor, color: myColor}"
   >
     <label>
-      <input type="checkbox" />
+      <input type="checkbox" v-model="todo.isCompleted" />
       <span>{{  todo.title  }}</span>
     </label>
-    <button class="btn btn-danger" style="display: none">删除</button>
+    <button 
+      class="btn btn-danger" 
+      v-show="isShow"
+      @click="delTodo"
+    >
+      删除
+    </button>
   </li>
 </template>
   
@@ -19,10 +25,21 @@
   export default defineComponent({
     name: "Item",
     props: {
-      todo: Object as () => Todo // 龟式返回的是Todo類型
+      todo: {
+        type: Object as () => Todo, // 龟式返回的是Todo類型
+        required: true
+      },
+      deleteTodo: {
+        type: Function,
+        required: true
+      },
+      index: {
+        type: Number,
+        required: true
+      }
     },
 
-    setup() {
+    setup(props) {
       const bgColor=ref('white')
       const myColor=ref('black')
       const isShow = ref(false)
@@ -37,10 +54,18 @@
           isShow.value = false
         }
       }
+
+      const delTodo = () => {
+        if (window.confirm('確定要刪除嗎 ?')) {
+          props.deleteTodo(props.index)
+        }
+      }
       return {
         mouseHandler,
         bgColor,
-        myColor
+        myColor,
+        isShow,
+        delTodo
       }
     }
   });
