@@ -7,7 +7,10 @@
         :deleteTodo="deleteTodo"
         :updateTodo="updateTodo" 
       />
-      <Footer />
+      <Footer 
+        :todos="todos"
+        :checkAll="checkAll"
+      />
     </div>
   </div>
 </template>
@@ -50,11 +53,18 @@
       console.log(todo)
     }
 
+    const checkAll = (isCompleted: boolean) => {
+      state.todos.forEach((todo) => {
+        todo.isCompleted = isCompleted
+      })
+    }
+
     return {
       ...toRefs(state),
       addTodo,
       deleteTodo,
-      updateTodo
+      updateTodo,
+      checkAll
     }
   }
 
