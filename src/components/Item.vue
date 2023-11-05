@@ -2,7 +2,7 @@
   <li>
     <label>
       <input type="checkbox" />
-      <span>xxxxx</span>
+      <span>{{  todo.title  }}</span>
     </label>
     <button class="btn btn-danger" style="display: none">删除</button>
   </li>
@@ -10,8 +10,13 @@
   
 <script lang="ts">
   import { defineComponent } from "vue";
+  // 引入接口
+  import {Todo} from '../types/todo'
   export default defineComponent({
     name: "Item",
+    props: {
+      todo: Object as () => Todo // 龟式返回的是Todo類型
+    }
   });
 </script>
   
