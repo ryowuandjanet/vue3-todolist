@@ -5,6 +5,7 @@
       :key="todo.id" 
       :todo="todo" 
       :deleteTodo="deleteTodo"
+      :updateTodo="updateTodo"
       :index="index"
     />
   </ul>
@@ -18,7 +19,7 @@
     components: {
       Item,
     },
-    props: ['todos','deleteTodo']
+    props: ['todos','deleteTodo','updateTodo']
   });
 </script>
   

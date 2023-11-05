@@ -5,7 +5,7 @@
     :style="{backgroundColor: bgColor, color: myColor}"
   >
     <label>
-      <input type="checkbox" v-model="todo.isCompleted" />
+      <input type="checkbox" v-model="isComplete" />
       <span>{{  todo.title  }}</span>
     </label>
     <button 
@@ -22,6 +22,7 @@
   import { defineComponent,ref } from "vue";
   // 引入接口
   import {Todo} from '../types/todo'
+import { computed } from "@vue/reactivity";
   export default defineComponent({
     name: "Item",
     props: {
@@ -36,7 +37,11 @@
       index: {
         type: Number,
         required: true
-      }
+      },
+      updateTodo: {
+        type: Function,
+        required: true
+      },
     },
 
     setup(props) {
@@ -60,12 +65,22 @@
           props.deleteTodo(props.index)
         }
       }
+
+      const isComplete = computed({
+        get(){
+          return props.todo.isCompleted
+        },
+        set(val){
+          props.updateTodo(props.todo, val)
+        }
+      })
       return {
         mouseHandler,
         bgColor,
         myColor,
         isShow,
-        delTodo
+        delTodo,
+        isComplete
       }
     }
   });

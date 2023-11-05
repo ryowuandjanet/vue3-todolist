@@ -2,7 +2,11 @@
   <div class="todo-container">
     <div class="todo-wrap">
       <Header :addTodo="addTodo" />
-      <List :todos="todos" :deleteTodo="deleteTodo" />
+      <List 
+        :todos="todos" 
+        :deleteTodo="deleteTodo"
+        :updateTodo="updateTodo" 
+      />
       <Footer />
     </div>
   </div>
@@ -41,10 +45,16 @@
       state.todos.splice(index, 1)
     }
 
+    const updateTodo = (todo: Todo, isCompleted: boolean) => {
+      todo.isCompleted = isCompleted
+      console.log(todo)
+    }
+
     return {
       ...toRefs(state),
       addTodo,
-      deleteTodo
+      deleteTodo,
+      updateTodo
     }
   }
 
