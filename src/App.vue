@@ -1,30 +1,38 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
+  <div class="todo-container">
+    <div class="todo-wrap">
+      <div class="todo-header">
+        <input type="text" placeholder="请输入你的任务名称，按回车键确认"/>
+      </div>
+      <ul class="todo-main">
+        <li>
+          <label>
+            <input type="checkbox"/>
+            <span>xxxxx</span>
+          </label>
+          <button class="btn btn-danger" style="display:none">删除</button>
+        </li>
+        <li>
+          <label>
+            <input type="checkbox"/>
+            <span>yyyy</span>
+          </label>
+          <button class="btn btn-danger" style="display:none">删除</button>
+        </li>
+      </ul>
+      <div class="todo-footer">
+        <label>
+          <input type="checkbox"/>
+        </label>
+        <span>
+          <span>已完成0</span> / 全部2
+        </span>
+        <button class="btn btn-danger">清除已完成任务</button>
+      </div>
+    </div>
   </div>
-  <HelloWorld msg="Vite + Vue" />
 </template>
 
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
-</style>
+
+<script>
+</script>
