@@ -17,12 +17,13 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, reactive, toRefs } from 'vue'
+  import { defineComponent, onMounted, reactive, toRefs, watch } from 'vue'
   import Header from './components/Header.vue'
   import List from './components/List.vue'
   import Footer from './components/Footer.vue'
 
   import { Todo } from './types/todo'
+  import { saveTodos, readTodos} from './utils/localStorageUtils'
 
   export default defineComponent ({
     name: 'App',
@@ -33,12 +34,23 @@
     },
 
     setup() {
+    // const state = reactive<{todos: Todo []}>({
+    //   todos: [
+    //     { id: 1, title: "吃飯", isCompleted: false },
+    //     { id: 2, title: "散步", isCompleted: true },
+    //     { id: 3, title: "看電影", isCompleted: false },
+    //   ]
+    // })
+
+
     const state = reactive<{todos: Todo []}>({
-      todos: [
-        { id: 1, title: "吃飯", isCompleted: false },
-        { id: 2, title: "散步", isCompleted: true },
-        { id: 3, title: "看電影", isCompleted: false },
-      ]
+      todos: []
+    })
+
+    onMounted(() => {
+      setTimeout(() => {
+        state.todos=readTodos()
+      },100)
     })
 
     const addTodo = (todo: Todo) => {
@@ -63,6 +75,8 @@
     const clearAllCompletedTodos = () => {
       state.todos = state.todos.filter(todo => !todo.isCompleted)
     }
+
+    watch(() => state.todos,saveTodos,{deep: true})
 
     return {
       ...toRefs(state),
